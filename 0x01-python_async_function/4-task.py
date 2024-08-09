@@ -4,19 +4,18 @@ Module for executing task_wait_random multiple times and returning the results.
 """
 import asyncio
 from typing import List
-from 3_tasks import task_wait_random
+from 3_tasks import task_wait_random  # Corrected import statement
 
 
 async def task_wait_n(n: int, max_delay: int) -> List[float]:
     """
-    Spawns task_wait_random n times 
+    Spawns task_wait_random n times with the specified max_delay.
+
     """
-    # Gather all the delays from task_wait_random calls
-    wait_times = await asyncio.gather(
+
+    wait_times: List[float] = await asyncio.gather(
         *[task_wait_random(max_delay) for _ in range(n)]
     )
 
-    # Return the list of delays in ascending order
     return sorted(wait_times)
-
 
